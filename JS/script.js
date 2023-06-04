@@ -1,9 +1,11 @@
-   
+   //fetching are required element like add button ,task input, and remaining count value 
     const plusSign=document.querySelector('#add-button');
     let inputText=document.getElementById('to-do-input');
     let taskCount=document.getElementById('count-tasks');
     let text=inputText.innerText;
     
+    // adding event when some text entered in input filed and click add-button and create a list item later which is appended into ul
+    // also updating count with every incresing count
     let count=1;
     plusSign.addEventListener('click', function() {
         let inputText=document.getElementById('to-do-input');
@@ -24,7 +26,8 @@
             li.appendChild(checkBox);
             li.appendChild(crossIcon);
             document.getElementById("list-item").appendChild(li);
-            // checkBox.addEventListener('click', isChecked(checkBox));
+            
+            // event to check if checkbox is checked or not to change the color to checked list
             checkBox.addEventListener('click',function(){
                 const listItem=checkBox.parentNode;
                 if(checkBox.checked){
@@ -35,19 +38,23 @@
                     listItem.classList.remove('purple-bg');
                 }
             });
-            // crossIcon.addEventListener('click',deleteListItem(crossIcon));
+            
+            //event to click on cross button to remove our list item from ul and update count
             crossIcon.addEventListener('click',function(){
                 let listItem=crossIcon.parentNode;
                 listItem.remove();
                 count--;
-                let countString= taskCount.innerText;
-                taskCount.innerText=count.toString()+countString.substring(1);
+                let countString= taskCount.innerText.split(" ");
+                countString[0]=count;
+                taskCount.innerText=countString[0]+" "+countString[1]+" "+countString[2];
             });
-        }
+        
         inputText.value="";
         count++;
-        let countString= taskCount.innerText;
-        taskCount.innerText=count.toString()+countString.substring(1);
+        let countString= taskCount.innerText.split(" ");
+        countString[0]=count;
+        taskCount.innerText=countString[0]+" "+countString[1]+" "+countString[2];
+        }
         
     })
     const checkboxs = document.querySelectorAll("input[type=checkbox]");
@@ -70,27 +77,11 @@
             let listItem=button.parentNode;
             listItem.remove();
             count--;
-            let countString= taskCount.innerText;
-            taskCount.innerText=count.toString()+countString.substring(1);
+            let countString= taskCount.innerText.split(" ");
+            countString[0]=count;
+            console.log(countString[0]+" "+countString[1]+" "+countString[2]);
+            taskCount.innerText=countString[0]+" "+countString[1]+" "+countString[2];
         });
         
     });
-    //required methods
-    function isChecked(element){
-        if (element.checked) {
-            element.parentNode.classList.add('purple-bg');  
-        } else {
-            element.parentNode.classList.remove('purple-bg');
-        }
-    }
-    function deleteListItem(crossButton){
-        if(crossButton.clicked){
-            list=crossButton.parentNode;
-            console.log(list);
-            list.remove();
-            count--;
-            let countString= taskCount.innerText;
-            taskCount.innerText=count.toString()+countString.substring(1);
-        
-        }
-    }
+
